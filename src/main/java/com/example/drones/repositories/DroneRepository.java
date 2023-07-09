@@ -1,15 +1,11 @@
 package com.example.drones.repositories;
 
 import com.example.drones.models.Drone;
+import com.example.drones.models.DroneState;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface DroneRepository extends JpaRepository<Drone, String> {
-    Optional<Drone> findBySerialNumber(String serialNumber);
-
-    @Query("SELECT SUM(m.weight) FROM Drone d JOIN d.medications m WHERE d.id = :droneId")
-    Optional<Integer> getTotalMedicationsWeightByDroneId(@Param("droneId") String droneId);
+    List<Drone> findByDroneStateAndBatteryCapacityGreaterThanEqual(DroneState droneState, Integer batteryCapacity);
 }

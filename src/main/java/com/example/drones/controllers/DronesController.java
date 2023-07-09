@@ -33,9 +33,23 @@ public class DronesController {
         return droneMapper.droneToDroneDto(registeredDrone);
     }
 
+    @GetMapping("/v1/drone/{drone-id}")
+    public DroneDto getDroneById(@PathVariable("drone-id") String droneId) {
+        Drone registeredDrone = droneService.getDroneById(droneId);
+        return droneMapper.droneToDroneDto(registeredDrone);
+    }
+
     @GetMapping("/v1/drones")
     public ListDronesResponseDto listDrones() {
         List<Drone> registeredDrones = droneService.listDrones();
+        ListDronesResponseDto listDronesResponseDto = new ListDronesResponseDto();
+        listDronesResponseDto.setDrones(droneMapper.droneToDroneDto(registeredDrones));
+        return listDronesResponseDto;
+    }
+
+    @GetMapping("/v1/available-drones")
+    public ListDronesResponseDto listAvailableDrones() {
+        List<Drone> registeredDrones = droneService.listAvailableDrones();
         ListDronesResponseDto listDronesResponseDto = new ListDronesResponseDto();
         listDronesResponseDto.setDrones(droneMapper.droneToDroneDto(registeredDrones));
         return listDronesResponseDto;
@@ -58,5 +72,21 @@ public class DronesController {
         ListDroneMedicationsResponseDto listDroneMedicationsResponseDto = new ListDroneMedicationsResponseDto();
         listDroneMedicationsResponseDto.setMedications(medicationMapper.medicationToMedicationDto(medications));
         return listDroneMedicationsResponseDto;
+    }
+
+    @PatchMapping("/v1/drone/{drone-id}/state")
+    public DroneDto updateDroneStatus(
+            @PathVariable("drone-id") String droneId,
+            @RequestBody DroneDto droneDto) {
+        Drone drone = droneService.updateDroneState(droneId, droneDto.getDroneState());
+        return droneMapper.droneToDroneDto(drone);
+    }
+
+    @PatchMapping("/v1/drone/{drone-id}/battery")
+    public DroneDto updateDroneBattery(
+            @PathVariable("drone-id") String droneId,
+            @RequestBody DroneDto droneDto) {
+        Drone drone = droneService.updateDroneBattery(droneId, droneDto.getBatteryCapacity());
+        return droneMapper.droneToDroneDto(drone);
     }
 }
