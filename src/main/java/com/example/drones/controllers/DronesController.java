@@ -75,7 +75,7 @@ public class DronesController {
     }
 
     @PatchMapping("/v1/drone/{drone-id}/state")
-    public DroneDto updateDroneStatus(
+    public DroneDto updateDroneState(
             @PathVariable("drone-id") String droneId,
             @RequestBody DroneDto droneDto) {
         Drone drone = droneService.updateDroneState(droneId, droneDto.getDroneState());
