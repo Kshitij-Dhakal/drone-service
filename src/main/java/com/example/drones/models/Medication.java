@@ -1,8 +1,6 @@
 package com.example.drones.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Medication {
@@ -21,6 +19,10 @@ public class Medication {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "drone_id")
+    private Drone drone;
 
     public String getImage() {
         return image;
@@ -60,5 +62,13 @@ public class Medication {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Drone getDrone() {
+        return drone;
+    }
+
+    public void setDrone(Drone drone) {
+        this.drone = drone;
     }
 }

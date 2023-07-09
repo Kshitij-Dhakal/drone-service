@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +32,6 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public Drone registerDrone(Drone drone) {
         drone.setId(UUID.randomUUID().toString());
-        drone.setRegisteredAt(new Date());
         return droneRepository.save(drone);
     }
 

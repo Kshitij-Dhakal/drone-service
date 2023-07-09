@@ -12,12 +12,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-public class DronesController {
+public class DroneController {
     private final DroneMapper droneMapper;
     private final DroneService droneService;
     private final MedicationMapper medicationMapper;
 
-    public DronesController(
+    public DroneController(
             DroneMapper droneMapper,
             DroneService droneService,
             MedicationMapper medicationMapper) {
