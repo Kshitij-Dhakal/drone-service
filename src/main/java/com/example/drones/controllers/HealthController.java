@@ -1,4 +1,4 @@
-package com.example.drones.controller;
+package com.example.drones.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
