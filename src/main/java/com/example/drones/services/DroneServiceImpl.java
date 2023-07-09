@@ -37,11 +37,7 @@ public class DroneServiceImpl implements DroneService {
     @Override
     @Transactional
     public void loadMedications(String droneId, List<Medication> medications) {
-        Optional<Drone> droneById = droneRepository.findById(droneId);
-        if (droneById.isEmpty()) {
-            throw new NotFoundException("Drone not found for given id");
-        }
-        Drone drone = droneById.get();
+        Drone drone = getDroneById(droneId);
         int weightLimit = drone.getWeightLimit();
         int currentWeight = droneRepository.getTotalMedicationsWeightByDroneId(drone.getId()).orElse(0);
         drone.setDroneState(DroneState.DRONE_STATE_LOADING);
@@ -57,12 +53,17 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public List<Medication> listDroneMedications(String droneId) {
+    public Drone getDroneById(String droneId) {
         Optional<Drone> droneById = droneRepository.findById(droneId);
         if (droneById.isEmpty()) {
             throw new NotFoundException("Drone not found for given id");
         }
-        Drone drone = droneById.get();
+        return droneById.get();
+    }
+
+    @Override
+    public List<Medication> listDroneMedications(String droneId) {
+        Drone drone = getDroneById(droneId);
         return drone.getMedications();
     }
 
