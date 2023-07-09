@@ -1,9 +1,14 @@
 package com.example.drones.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "Drone", indexes = {
+        @Index(name = "idx_drone_serial_number", columnList = "serial_number", unique = true)
+})
 public class Drone {
     @Id
     @Column(name = "id", length = 36)
@@ -24,9 +29,21 @@ public class Drone {
     @Column(name = "drone_state")
     private DroneState droneState;
 
+    @OneToMany
+    @CollectionTable(name = "drone_medication", joinColumns = @JoinColumn(name = "drone_id"))
+    private List<Medication> medications = new ArrayList<>();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "registered_at")
     private Date registeredAt;
+
+    public List<Medication> getMedications() {
+        return medications;
+    }
+
+    public void setMedications(List<Medication> medications) {
+        this.medications = medications;
+    }
 
     public String getId() {
         return id;
