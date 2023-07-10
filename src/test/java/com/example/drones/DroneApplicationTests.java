@@ -9,5 +9,4 @@ class DroneApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
