@@ -43,10 +43,12 @@ public class DroneLogService {
     }
 
     public List<DroneLog> listDroneLogs(Long cursor, Long after, Long before, int limit) {
+        log.info("List drone logs.");
         return droneLogRepository.findAll(cursor, after, before, Pageable.ofSize(limit));
     }
 
     public List<DroneLog> listDroneLogsByDroneId(String droneId, Long cursor, Long after, Long before, int limit) {
+        log.info("List drone log by drone id : {}", droneId);
         return droneLogRepository.findByDrone(droneId,
                 cursor,
                 after,
