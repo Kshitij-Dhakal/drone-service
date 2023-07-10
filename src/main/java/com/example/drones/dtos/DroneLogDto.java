@@ -3,7 +3,7 @@ package com.example.drones.dtos;
 import com.example.drones.models.DroneState;
 
 public class DroneLogDto {
-    private String id;
+    private long id;
     private String droneId;
     private String serialNumber;
     private DroneState droneState;
@@ -11,11 +11,11 @@ public class DroneLogDto {
 
     private Long timestamp;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
