@@ -4,6 +4,7 @@ import com.example.drones.errors.FailedException;
 import com.example.drones.errors.NotFoundException;
 import com.example.drones.errors.ValidationException;
 import com.example.drones.models.Drone;
+import com.example.drones.models.DroneModel;
 import com.example.drones.models.DroneState;
 import com.example.drones.models.Medication;
 import com.example.drones.repositories.DroneRepository;
@@ -32,6 +33,12 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public Drone registerDrone(Drone drone) {
         drone.setId(UUID.randomUUID().toString());
+        if (drone.getDroneModel() == DroneModel.DRONE_MODEL_UNKNOWN) {
+            throw new ValidationException("Invalid drone model");
+        }
+        if (drone.getDroneState() == DroneState.DRONE_STATE_UNKNOWN) {
+            drone.setDroneState(DroneState.DRONE_STATE_IDLE);
+        }
         return droneRepository.save(drone);
     }
 
